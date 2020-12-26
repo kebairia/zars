@@ -1,10 +1,12 @@
 #!/bin/env sh
+source ./misc.sh
+# misc {{{1
 set -e 
 _error(){
-	echo ${RED}"Error: $@"${RESET} >&2
+	printf ${RED}"Error:${RESET} $@" >&2
 }
 _info(){
-	printf ${YELLOW}"INFO: $@"${RESET}
+	printf ${YELLOW}"INFO:${RESET} $@"
 }
 _done(){
 	echo ${GREEN}" DONE"${RESET}
