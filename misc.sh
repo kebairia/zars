@@ -25,4 +25,3 @@ function usage() {
     echo "  -h   Get this help message"
     exit 1
 }
-banner

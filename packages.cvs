@@ -3,6 +3,7 @@
 ,xorg-xwininfo,"allows querying information about windows."
 ,xorg-xinit,"starts the graphical server."
 ,xorg-xrandr,"xrandr utility."
+,openssh,"openssh."
 G,libxft-bgra-git,"starts the graphical server."
 ,libxinerama,"starts the graphical server."
 ,ttf-font-awesome,"font awesome"
