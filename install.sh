@@ -89,3 +89,20 @@ refreshkeys() { \
 install_pkgs(){
 	pacman --noconfirm --needed -S ${1} >/dev/null 2>&1;
 }
+build_from_src(){
+	#TODO: check it required packages are installed.
+	init_dir="${PWD}"
+	cd ${1}
+	_info "Building ${1}...\n"
+	sudo make install clean || exit 1
+	_done
+	cd ${init_dir}
+}
+copy_config(){
+	_info "Copying config files"
+	mkdir /home/${name}/.config
+	cp -rv config/* /home/${name}/.config
+}
+setup_color
+build_from_src "suckless/dwm/"
+build_from_src "suckless/st/"
