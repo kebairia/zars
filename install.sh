@@ -95,6 +95,37 @@ adduserandpass() { \
 	unset pass1 pass2 ;}
 
 #}}}
+# setup_packages {{{1
+#
+# Install packages by parsing the packages.csv file
+#
+setup_packages(){
+  echo "${BLUE}Setup Packages...${RESET}"
+  pacman --noconfirm --needed -S \
+      $(awk -F ',' '/^,/ {print $2}' ${PACKAGES_FILE} \
+      | tr -s '\n' ' ')
+
+}
+setup_git_packages(){
+    REMOTE_REPO="${1}"
+    LOCAL_REPO="${2}"
+    echo "${BLUE}Setup "${LOCAL_REPO}"...${RESET}"
+
+    command_exists git || {
+        _error "git is not installed\n"
+        _loading "Installing..."
+        sudo pacman --noconfirm -S git &>/dev/null
+        _done
+    }
+    echo "${BLUE}Cloning "${LOCAL_REPO}"...${RESET}"
+    git clone "${REMOTE_REPO}" "${LOCAL_REPO}"
+    cd "${LOCAL_REPO}"
+    sudo make && sudo make install clean
+}
+setup_suckless_packages(){
+    echo 
+}
+#}}}
 main(){
     banner
     #while getopts ":pch" Option
