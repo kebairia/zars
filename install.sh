@@ -95,15 +95,6 @@ adduserandpass() { \
 	unset pass1 pass2 ;}
 
 #}}}
-# setup_packages {{{1
-setup_packages(){
-  echo "${BLUE}Setup Packages...${RESET}"
-  pacman --noconfirm --needed -S \
-      $(awk -F ',' '/^,/ {print $2}' ${PACKAGES_FILE} \
-      | tr -s '\n' ' ')
-
-}
-#}}}
 main(){
     banner
     #while getopts ":pch" Option
