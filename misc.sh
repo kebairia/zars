@@ -1,4 +1,4 @@
-#!/bin/env zsh
+#!/bin/env sh
 #                            
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 #┃ ╻ ╻┏━┓╻  ┏━┓┏━┓┏┳┓┏━┓  ━┳━┏━┓  ╺━┓┏━┓┏━┓┏━┓ ┃
@@ -22,6 +22,12 @@ _underline() {
 
 _code() {
   echo "\`$(printf '\033[38;5;247m')$@${RESET}\`"
+}
+_loading() {
+  echo -n "$(printf '\033[38;5')$@${RESET}"
+}
+command_exists(){
+    command -v "$@" >/dev/null 2>&1
 }
 function setup_color(){
 	# Only use color if connected to a terminal
