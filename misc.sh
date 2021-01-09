@@ -29,7 +29,7 @@ _loading() {
 command_exists(){
     command -v "$@" >/dev/null 2>&1
 }
-function setup_color(){
+setup_color(){
 	# Only use color if connected to a terminal
 	if [ -t 1 ]; then
 		RED=$(printf '\033[0;31m')
@@ -66,9 +66,9 @@ function usage() {
     echo "Usage: $0 [options] [arguments]"
     echo
     echo "Options"
-    echo "  -l   something"
-    echo "  -l   something"
-    echo "  -l   something"
+    echo "  -u   Setup User"
+    echo "  -p   Setup Packages"
+    echo "  -c   Setup Config files"
     exit 1
 }
 setup_color

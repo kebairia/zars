@@ -46,18 +46,19 @@ setup_config(){
 # setup_user {{{1
 user_exists(){
     grep "^${1}" /etc/passwd >/dev/null 2>&1 
-
 }
-getuserandpass() { \
+get_user_and_pass() { \
 	# Prompts user for new username an password.
 	read -p "Please enter a name for the user account: " name || exit 1
     while user_exists "${name}";do
         _error "User \"${name}\" exist, Try another name\n"
 	    read -p "Please enter a name for the user account: " name || exit 1
     done
+
 	while ! echo "$name" | grep -q "^[a-z_][a-z0-9_-]*$"; do
 		_error "Username not valid. \n"
-        _info "Give a username beginning with a letter, with only lworcase letters, - or_.\n\n"
+        _info "Give a username beginning with a letter, 
+with only lworcase letters, - or_.\n\n"
 		read -p "Please enter a name for the user account: " name || exit 1
 	done
 
@@ -77,15 +78,15 @@ adduserandpass() { \
 	# Adds user `$name` with password $pass1.
 	# TODO: choose zsh by default, otherwise use bash 
 	_info "Adding user \"$name\"...\n"
-    useradd \
-        -m \
-        -s /bin/bash "$name" \
-        >/dev/null 2>&1
-	usermod \
-        -aG wheel "$name" \
+    useradd -m -s /bin/bash "$name" >/dev/null 2>&1
+	usermod -aG wheel "$name" \
         && mkdir -p /home/"$name" \
         && chown "$name":"$name" /home/"$name"
-	repodir="/home/$name/.local/src"; mkdir -p "$repodir"; chown -R "$name":"$name" "$(dirname "$repodir")"
+
+	repodir="/home/$name/.local/src"; \
+        mkdir -p "$repodir"; \
+        chown -R "$name":"$name" "$(dirname "$repodir")"
+
 	echo "$name:$pass1" | chpasswd
 
 	echo "name: $(grep "${name}" /etc/passwd | awk -F ":" '{print $1}' )" 
@@ -97,17 +98,8 @@ adduserandpass() { \
 #}}}
 main(){
     banner
-    #while getopts ":pch" Option
-    #do
-        #case $Option in
-            #p) install_pkgs ;;
-            #c) setup_config ;; 
-            #h) usage ;;
-            #*) usage ;;
-        #esac
-    #done
     #install_pkgs
-    getuserandpass
+    get_user_and_pass
     adduserandpass
     setup_config
     setup_packages

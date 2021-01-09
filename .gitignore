@@ -2,3 +2,6 @@ todo
 *.old
 .REPO
 *.svg
+*.html
+main.sh
+code.org
