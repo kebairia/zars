@@ -48,9 +48,9 @@ user_exists(){
     grep "^${1}" /etc/passwd >/dev/null 2>&1 
 
 }
-getuserandpass() { \
-	# Prompts user for new username an password.
-	read -p "Please enter a name for the user account: " name || exit 1
+getuserandpass() { 
+    # Prompts user for new username an password.
+    read -p "Please enter a name for the user account: " name || exit 1
     while user_exists "${name}";do
         _error "User \"${name}\" exist, Try another name\n"
 	    read -p "Please enter a name for the user account: " name || exit 1
@@ -77,22 +77,19 @@ adduserandpass() { \
 	# Adds user `$name` with password $pass1.
 	# TODO: choose zsh by default, otherwise use bash 
 	_info "Adding user \"$name\"...\n"
-    useradd \
-        -m \
-        -s /bin/bash "$name" \
-        >/dev/null 2>&1
-	usermod \
-        -aG wheel "$name" \
+    useradd  -m -s /bin/bash "$name"  >/dev/null 2>&1
+    usermod -aG wheel "$name" \
         && mkdir -p /home/"$name" \
         && chown "$name":"$name" /home/"$name"
-	repodir="/home/$name/.local/src"; mkdir -p "$repodir"; chown -R "$name":"$name" "$(dirname "$repodir")"
-	echo "$name:$pass1" | chpasswd
 
-	echo "name: $(grep "${name}" /etc/passwd | awk -F ":" '{print $1}' )" 
-	echo "uid: $(grep "${name}" /etc/passwd | awk -F ":" '{print $3}' )" 
-	echo "gid: $(grep "${name}" /etc/passwd | awk -F ":" '{print $4}' )" 
-	echo "shell: $(grep "${name}" /etc/passwd | awk -F ":" '{print $NF}' )" 
-	unset pass1 pass2 ;}
+    repodir="/home/$name/.local/src"; mkdir -p "$repodir"; chown -R "$name":"$name" "$(dirname "$repodir")"
+    echo "$name:$pass1" | chpasswd
+
+    echo "name: $(grep "${name}" /etc/passwd | awk -F ":" '{print $1}' )" 
+    echo "uid: $(grep "${name}" /etc/passwd | awk -F ":" '{print $3}' )" 
+    echo "gid: $(grep "${name}" /etc/passwd | awk -F ":" '{print $4}' )" 
+    echo "shell: $(grep "${name}" /etc/passwd | awk -F ":" '{print $NF}' )" 
+    unset pass1 pass2 ;}
 
 #}}}
 # setup_packages {{{1
