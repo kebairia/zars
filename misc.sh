@@ -8,7 +8,7 @@
 #
 set -e 
 _error(){
-	printf ${RED}"Error:${RESET} $@" >&2
+	printf ${RED}"ERROR:${RESET} $@" >&2
 }
 _info(){
 	printf ${YELLOW}"INFO:${RESET} $@"

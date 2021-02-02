@@ -78,23 +78,51 @@ adduserandpass() { \
 	# Adds user `$name` with password $pass1.
 	# TODO: choose zsh by default, otherwise use bash 
 	_info "Adding user \"$name\"...\n"
-    useradd -m -s /bin/bash "$name" >/dev/null 2>&1
-	usermod -aG wheel "$name" \
+    useradd  -m -s /bin/bash "$name"  >/dev/null 2>&1
+    usermod -aG wheel "$name" \
         && mkdir -p /home/"$name" \
         && chown "$name":"$name" /home/"$name"
 
-	repodir="/home/$name/.local/src"; \
-        mkdir -p "$repodir"; \
-        chown -R "$name":"$name" "$(dirname "$repodir")"
+    repodir="/home/$name/.local/src"; mkdir -p "$repodir"; chown -R "$name":"$name" "$(dirname "$repodir")"
+    echo "$name:$pass1" | chpasswd
 
-	echo "$name:$pass1" | chpasswd
+    echo "name: $(grep "${name}" /etc/passwd | awk -F ":" '{print $1}' )" 
+    echo "uid: $(grep "${name}" /etc/passwd | awk -F ":" '{print $3}' )" 
+    echo "gid: $(grep "${name}" /etc/passwd | awk -F ":" '{print $4}' )" 
+    echo "shell: $(grep "${name}" /etc/passwd | awk -F ":" '{print $NF}' )" 
+    unset pass1 pass2 ;}
 
-	echo "name: $(grep "${name}" /etc/passwd | awk -F ":" '{print $1}' )" 
-	echo "uid: $(grep "${name}" /etc/passwd | awk -F ":" '{print $3}' )" 
-	echo "gid: $(grep "${name}" /etc/passwd | awk -F ":" '{print $4}' )" 
-	echo "shell: $(grep "${name}" /etc/passwd | awk -F ":" '{print $NF}' )" 
-	unset pass1 pass2 ;}
+#}}}
+# setup_packages {{{1
+#
+# Install packages by parsing the packages.csv file
+#
+setup_packages(){
+  echo "${BLUE}Setup Packages...${RESET}"
+  pacman --noconfirm --needed -S \
+      $(awk -F ',' '/^,/ {print $2}' ${PACKAGES_FILE} \
+      | tr -s '\n' ' ')
 
+}
+setup_git_packages(){
+    REMOTE_REPO="${1}"
+    LOCAL_REPO="${2}"
+    echo "${BLUE}Setup "${LOCAL_REPO}"...${RESET}"
+
+    command_exists git || {
+        _error "git is not installed\n"
+        _loading "Installing..."
+        sudo pacman --noconfirm -S git &>/dev/null
+        _done
+    }
+    echo "${BLUE}Cloning "${LOCAL_REPO}"...${RESET}"
+    git clone "${REMOTE_REPO}" "${LOCAL_REPO}"
+    cd "${LOCAL_REPO}"
+    sudo make && sudo make install clean
+}
+setup_suckless_packages(){
+    echo 
+}
 #}}}
 main(){
     banner
