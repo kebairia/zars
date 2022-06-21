@@ -1,0 +1,17 @@
+---
+# tasks file for zk.zars
+# installing and configuring the window manager and other suckless apps
+# DWM (the main window manager)
+- name: Cloning my own build of dwm (kebairia/dwm)
+  repo: "https://github.com/kebairia/dwm.git"
+  dest: ./dwm
+- name: Buildiing my own dwm
+  command: ["make", "install", "clean"]
+
+
+
+# ST (simple terminal)
+# DMENU (Menus)
+# SLSTATUS (suckless status bar)
+# BGS (Background configuration)
+...
