@@ -1,5 +1,6 @@
 todo
 *.old
+*.other
 .REPO
 *.svg
 *.html
