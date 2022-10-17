@@ -1,2 +1,15 @@
 ---
 # vars file for zk.zars
+packages:
+  - git
+  - zsh
+  - xorg
+  - neovim
+  - mpd
+  - mpv
+  - mpc
+  - arandr
+dtdir: /home/zakaria/dox/dtfiles
+dtrepo: https://github.com/kebairia/dtfiles.git
+config_dir: /home/zakaria/.config
+
