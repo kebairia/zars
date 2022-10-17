@@ -2,10 +2,24 @@
 # tasks file for zk.zars
 # installing and configuring the window manager and other suckless apps
 # DWM (the main window manager)
+- import_tasks: check_git.yml
+- import_tasks: suckless_requirements
 - name: Cloning my own build of dwm (kebairia/dwm)
   repo: "https://github.com/kebairia/dwm.git"
   dest: ./dwm
 - name: Buildiing my own dwm
+  command: ["make", "install", "clean"]
+
+- name: Cloning my own build of st (kebairia/st)
+  repo: "https://github.com/kebairia/dwm.git"
+  dest: ./st
+- name: Buildiing my own st
+  command: ["make", "install", "clean"]
+
+- name: Cloning my own build of suckless (kebairia/suckless)
+  repo: "https://github.com/kebairia/suckless.git"
+  dest: ./suckless
+- name: Buildiing my own suckless
   command: ["make", "install", "clean"]
 
 

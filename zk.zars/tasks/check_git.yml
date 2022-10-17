@@ -1,0 +1,6 @@
+---
+# tasks file for zk.zars
+- name: check and install git
+  package:
+    name: git
+    state: present

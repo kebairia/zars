@@ -1,2 +1,8 @@
 ---
 # tasks file for zk.zars
+- name: install required packages
+  pacman:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - "{{ packages }}"

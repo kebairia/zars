@@ -1,0 +1,22 @@
+---
+# tasks file for zk.zars
+# Download my configs
+- name: download my dotfiles
+  git:
+    repo: https://github.com/kebairia/dtfiles.git
+    dest: /home/zakaria/dox/dtfiles
+    clone: True
+    update: Yes
+- name: Create the .config folder
+  file:
+    path: /home/zakaria/.config
+    state: directory
+- name: link the configs to ~/.config folder
+  file:
+    state: link
+    path: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: zakaria
+    group: zakaria
+  loop:
+    - { src: /home/zakaria/dox/dtfiles/nvim, dest: /home/zakaria/.config/nvim }

@@ -1,2 +1,4 @@
 ---
 # tasks file for zk.zars
+- import_tasks: packages.yml
+- import_tasks: configs.yml
