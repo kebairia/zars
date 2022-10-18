@@ -1,0 +1,35 @@
+---
+# tasks file for zk.zars
+# Download my configs
+- name: Download my dotfiles
+  git:
+    repo: "{{ dtrepo }}"
+    dest: "{{ dtdir }}"
+    clone: True
+    update: Yes
+- name: change the permissions of the dotfiles repo
+  file:
+    path: "{{ dtrepo }}"
+    state: directory
+    owner: zakaria
+    group: zakaria
+    force: yes
+#TODO: change to ssh link in git config
+- name: Create the .config folder
+  file:
+    path: "{{ config_dir }}"
+    state: directory
+      #- name: link the configs to ~/.config folder
+      #  copy:
+      #    src: "/home/zakaria/dox/dtfiles/nvim"
+      #    dest: "/home/zakaria/.config/nvim"
+      #    owner: zakaria
+      #    group: zakaria
+- name: link the configs to ~/.config folder
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - { src: "{{ dtdir + '/nvim'}}", dest: "{{ config_dir + '/nvim'}}"}
+    - { src: "{{ dtdir + '/mpd'}}", dest: "{{ config_dir + '/mpd'}}"}

@@ -1,0 +1,43 @@
+---
+# vars file for zk.zars
+packages:
+  - git
+  - zsh
+  - neovim
+  - mpd
+  - mpv
+  - mpc
+  - arandr
+  - xorg
+  - xorg-xrandr
+  - xorg-xprop
+  - texlive-latexextra
+  - texlive-science
+  - texlive-fontsextra
+  - texlive-core
+  - texlive-pictures
+  - bc
+  - libnotify
+  - dunst
+  - exfat-utils
+  - sxiv
+  - ffmpeg
+  - neovim
+  - emacs
+  - man-db
+  - ncmpcpp
+  - newsboat
+  - firefox
+  - ntfs-3g
+  - alsa-utils
+  - scrot
+  - unrar
+  - unzip
+  - youtube-dl
+  - zathura
+  - zathura-pdf-mupdf
+  - tmux
+dtdir: /home/zakaria/dox/dtfiles
+dtrepo: https://github.com/kebairia/dtfiles 
+config_dir: /home/zakaria/.config
+
