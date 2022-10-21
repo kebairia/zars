@@ -1,0 +1,16 @@
+---
+# tasks file for zk.zars
+- name: Update OpenRC config
+  lineinfile:
+    path: /etc/rc.conf
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+    mode: 0644
+  loop:
+    - { regexp: '^#rc_parallel', line: 'rc_parallel="YES"' }
+    - { regexp: '^#rc_logger', line: 'rc_logger="YES"' }
+    - { regexp: '^#rc_send_sighup', line: 'rc_send_sighup="YES"' }
+    - { regexp: '^#rc_timeout_stopsec', line: 'rc_timeout_stopsec="10"' }
+    - { regexp: '^#rc_send_sigkill', line: 'rc_send_sigkill="YES"' }
+  register: openrc_config
