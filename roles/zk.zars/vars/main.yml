@@ -37,7 +37,10 @@ packages:
   - zathura
   - zathura-pdf-mupdf
   - tmux
+  - numlockx
+  - imlib2 # for bgs
 dtdir: /home/zakaria/dox/dtfiles
 dtrepo: https://github.com/kebairia/dtfiles 
 config_dir: /home/zakaria/.config
+local_dir: /home/zakaria/.local/share
 

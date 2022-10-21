@@ -33,3 +33,9 @@
   loop:
     - { src: "{{ dtdir + '/nvim'}}", dest: "{{ config_dir + '/nvim'}}"}
     - { src: "{{ dtdir + '/mpd'}}", dest: "{{ config_dir + '/mpd'}}"}
+# .local {{{
+- name: Copy .local folder
+  copy:
+    src: "{{ dtdir + '/.local' }}"
+    dest: "{{ local_dir }}"
+#}}}
