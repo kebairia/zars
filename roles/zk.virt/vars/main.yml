@@ -1,0 +1,20 @@
+---
+# vars file for zk.virt
+packages:
+  - qemu 
+  - virt-manager
+  - virt-viewer
+  - dnsmasq
+  - vde2
+  - bridge-utils
+  - openbsd-netcat
+    #  - ebtables
+    #  - iptables
+    #  - libguestfs
+libvirt_service: libvirtd
+_user: 'zakaria'
+_home: /home/zakaria
+dtdir: /home/zakaria/dox/dtfiles
+dtrepo: https://github.com/kebairia/dtfiles 
+config_dir: /home/zakaria/.config
+local_dir: /home/zakaria/.local/share

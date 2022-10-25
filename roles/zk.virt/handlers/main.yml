@@ -1,0 +1,9 @@
+---
+# handlers file for zk.virt
+- name: restart_libvirt
+  service:
+    name: "{{ libvirt_service }}"
+    state: restarted
+- name: confirm_nested_virtualization
+  shell: |
+    systool -m kvm_intel -v | grep nested

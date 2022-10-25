@@ -1,0 +1,43 @@
+- name: install required packages
+  package:
+    name: "{{ item }}"
+    state: present
+    update_cache: no
+  loop:
+    - "{{ packages }}"
+- name: start and enable {{ libvirt_service }} service
+  service:
+    name: "{{ libvirt_service }}"
+    state: started
+    enabled: True
+- name: Enable normal user account to use KVM
+  # libvirt configuration on the user's home will be done 
+  lineinfile:
+    #path: "'{{ lookup('ansible.builtin.env', 'HOME') + '/.config/libvirt/libvirt.conf'}}'"
+    path: /etc/libvirt/libvirtd.conf
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+    mode: 0644
+  loop:
+    - { regexp: '^#unix_sock_group', line: 'unix_sock_group = "libvirt"' }
+    - { regexp: '^#unix_sock_rw_perms', line: 'unix_sock_rw_perms = "0770"' }
+- name: symlink libvirt configuration file from my dotfile folder
+  file:
+    src: "{{ dtdir + '/libvirt'}}"
+    dest: "{{ config_dir + '/libvirt'}}"
+    state: link
+      #    owner: "'{{ lookup('ansible.builtin.env', 'USER') }}'"
+      #    group: "'{{ lookup('ansible.builtin.env', 'USER') }}'"
+    owner: zakaria
+    group: zakaria
+- name: Adding "{{ _user }}" to libvirt group
+  command: |
+    sudo usermod -a -G libvirt "{{ _user }}"
+  notify: restart_libvirt
+- name: Enable nested virtualization
+  shell: |
+    sudo modprobe -r kvm_intel \&& \
+    sudo modprobe kvm_intel nested=1 \&& \
+    echo "options kvm-intel nested=1" | sudo tee /etc/modprobe.d/kvm-intel.conf
+  notify: confirm_nested_virtualization

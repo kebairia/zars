@@ -1,7 +1,8 @@
 - hosts: localhost
   become: true
   become_user: root
-  gather_facts: False
+  gather_facts: True
   connection: local
   roles:
-    - role: zk.zars
+    #    - role: zk.zars
+    - role: zk.virt

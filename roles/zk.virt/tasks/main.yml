@@ -1,0 +1,4 @@
+---
+# tasks file for zk.virt
+- import_tasks: install_configure_kvm_qemu.yml
+- import_tasks: configure_vagrant.yml
