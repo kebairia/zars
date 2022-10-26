@@ -1,5 +1,5 @@
 ---
-# tasks file for zk.zars
+# tasks file for zk.system
 # Download my configs
 - name: Download my dotfiles
   git:
@@ -30,9 +30,15 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     state: link
+    owner: zakaria
+    group: zakaria
+    recurse: True
   loop:
     - { src: "{{ dtdir + '/nvim'}}", dest: "{{ config_dir + '/nvim'}}"}
     - { src: "{{ dtdir + '/mpd'}}", dest: "{{ config_dir + '/mpd'}}"}
+    - { src: "{{ dtdir + '/x11'}}", dest: "{{ config_dir + '/x11'}}"}
+    - { src: "{{ dtdir + '/tmux'}}", dest: "{{ config_dir + '/tmux'}}"}
+    - { src: "{{ config_dir + '/x11/xinitrc'}}", dest: "{{ _home + '/.xinitrc' }}"}
 # .local {{{
 - name: Copy .local folder
   copy:

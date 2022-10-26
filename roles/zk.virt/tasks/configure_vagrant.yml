@@ -1,0 +1,7 @@
+- name: install vagrant
+  pacman:
+    name: vagrant
+    state: present
+- name: install vagrant-libvirt plugin
+  shell: > 
+    vagrant plugin install vagrant-libvirt

@@ -1,5 +1,5 @@
 ---
-# tasks file for zk.zars
+# tasks file for zk.system
 # installing and configuring the window manager and other suckless apps
 # DWM (the main window manager)
 - import_tasks: check_git.yml

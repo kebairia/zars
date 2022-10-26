@@ -1,5 +1,5 @@
 ---
-# tasks file for zk.zars
+# tasks file for zk.system
 - name: install required packages
   pacman:
     name: "{{ item }}"

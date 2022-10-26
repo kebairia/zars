@@ -1,5 +1,5 @@
 ---
-# tasks file for zk.zars
+# tasks file for zk.system
 - name: check and install git
   package:
     name: git

@@ -1,5 +1,7 @@
 ---
-# vars file for zk.zars
+# vars file for zk.system
+# packages {{{
+#
 packages:
   - git
   - zsh
@@ -39,6 +41,10 @@ packages:
   - tmux
   - numlockx
   - imlib2 # for bgs
+  - inkscape
+# }}}
+_user: 'zakaria'
+_home: /home/zakaria
 dtdir: /home/zakaria/dox/dtfiles
 dtrepo: https://github.com/kebairia/dtfiles 
 config_dir: /home/zakaria/.config
